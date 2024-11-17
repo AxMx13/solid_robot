@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="solid_robot">
+    <link name="world" />
+
+
 
     <link name="base_link">
         <inertial>
@@ -41,6 +44,12 @@
         </geometry>
         </collision>
     </link>
+    <joint
+        name="virtual_joint" type="fixed">
+        <parent link="world" />
+        <child link="base_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+    </joint>
 
     <link name="link1">
         <inertial>
