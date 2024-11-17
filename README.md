@@ -11,9 +11,8 @@ cd ..
 colcon build
 . install/setup.bash
 ```
-<p>To test our URDF, you can use the <code>ros-humble-urdf-tutorial</code> package by installing it with the following command:</p>
+<p>To launch description use the following command:</p>
 
 ```
-sudo apt install ros-humble-urdf-tutorial
-ros2 launch urdf_tutorial display.launch.py model:=$HOME/solid_robot_ws/src/solid_robot/urdf/solid_robot.urdf.xacro
+ros2 launch solid_robot display.launch.py 
 ```
