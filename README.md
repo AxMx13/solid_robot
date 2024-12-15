@@ -21,3 +21,10 @@ ros2 launch solid_robot display.launch.py
 ```
 ros2 launch solid_robot gazebo.launch.py 
 ```
+
+<p>Launch ROS2 controller in new terminal:</p>
+
+```
+source ~/solid_robot_ws/install/setup.bash
+ros2 launch solid_robot_controller controller.launch.py 
+```

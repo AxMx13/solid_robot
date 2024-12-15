@@ -1,9 +1,23 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="solid_robot">
+
+    <xacro:include filename="$(find solid_robot)/urdf/solid_robot_gazebo.xacro"/>
+    <xacro:include filename="$(find solid_robot)/urdf/solid_robot_control.xacro"/>
+
+    <xacro:macro name="default_transmission" params="transmission_name actuator_name joint_name">
+        <transmission name="${transmission_name}">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <actuator name="${actuator_name}" role="actuator1"/>
+            <joint name="${joint_name}">
+                <mechanical_reduction>
+                    1.0
+                </mechanical_reduction>
+            </joint>
+        </transmission>
+    </xacro:macro>
+    
     <link name="world" />
-
-
 
     <link name="base_link">
         <inertial>
@@ -48,7 +62,7 @@
         name="virtual_joint" type="fixed">
         <parent link="world" />
         <child link="base_link"/>
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <origin rpy="0 0 0" xyz="0 0 0.1" />
     </joint>
 
     <link name="link1">
@@ -161,8 +175,8 @@
         <axis
         xyz="0 1 0" />
         <limit
-        lower="-1.57"
-        upper="1.57"
+        lower="-${pi/2}"
+        upper="${pi/2}"
         effort="300"
         velocity="3" />
     </joint>
@@ -335,8 +349,8 @@
         <axis
         xyz="1 0 0" />
         <limit
-        lower="-1.57"
-        upper="1.57"
+        lower="-${pi/2}"
+        upper="${pi/2}"
         effort="300"
         velocity="3" />
     </joint>
@@ -451,7 +465,7 @@
         <axis
         xyz="1 0 0" />
         <limit
-        lower="-1.57"
+        lower="-${pi/2}"
         upper="0.1"
         effort="300"
         velocity="3" />
@@ -510,8 +524,19 @@
         xyz="-1 0 0" />
         <limit
         lower="-0.1"
-        upper="1.57"
+        upper="${pi/2}"
         effort="300"
         velocity="3" />
     </joint>
+
+    <xacro:default_transmission transmission_name="link1_transmission" actuator_name="motor1" joint_name="joint1"/>
+    <xacro:default_transmission transmission_name="link2_transmission" actuator_name="motor2" joint_name="joint2"/>
+    <xacro:default_transmission transmission_name="link3_transmission" actuator_name="motor3" joint_name="joint3"/>
+    <xacro:default_transmission transmission_name="link4_transmission" actuator_name="motor4" joint_name="joint4"/>
+    <xacro:default_transmission transmission_name="link5_transmission" actuator_name="motor5" joint_name="joint5"/>
+    <xacro:default_transmission transmission_name="gripper_link_transmission" actuator_name="gripper_motor" joint_name="gripper_joint"/>
+    <xacro:default_transmission transmission_name="left_claw_link_transmission" actuator_name="left_claw_motor" joint_name="left_claw_joint"/>
+    <xacro:default_transmission transmission_name="right_claw_link_transmission" actuator_name="right_claw_motor" joint_name="right_claw_joint"/>
+
+
 </robot>
