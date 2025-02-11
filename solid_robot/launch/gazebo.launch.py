@@ -9,19 +9,6 @@ from launch.actions import AppendEnvironmentVariable
 import os
 
 def generate_launch_description():
-    # model_arg = DeclareLaunchArgument(
-    #     name="model",
-    #     default_value=os.path.join(
-    #         get_package_share_directory("solid_robot"), "urdf", "solid_robot.urdf.xacro"
-    #     ),
-    #     description="Absolute path to robot URDF xacro file",
-    # )
-
-    # env_var = SetEnvironmentVariable(
-    #     name="GAZEBO_MODEL_PATH",
-    #     value=os.path.join(get_package_prefix("solid_robot"), "share"),
-    # )
-
     set_env_vars_resources = AppendEnvironmentVariable(
         'GZ_SIM_RESOURCE_PATH', # IGN_GAZEBO_RESOURCE_PATH ?
         os.path.join(get_package_prefix('solid_robot'),
@@ -58,14 +45,6 @@ def generate_launch_description():
             launch_arguments={'gz_args': ['-r -v4 ', world], 'on_exit_shutdown': 'true'}.items()
         )
 
-    # start_gazebo_server = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(os.path.join(get_package_share_directory("gazebo_ros"), "launch", "gzserver.launch.py")),
-    # )
-
-    # start_gazebo_client = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(os.path.join(get_package_share_directory("gazebo_ros"), "launch", "gzclient.launch.py")),
-    # )
-
     spawn_robot = Node(
         package="ros_gz_sim",
          executable='create',
@@ -79,14 +58,22 @@ def generate_launch_description():
         output='screen',
     )
 
+    bridge_params = os.path.join(get_package_share_directory("solid_robot"),'config','gz_bridge.yaml')
+    ros_gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        arguments=[
+            '--ros-args',
+            '-p',
+            f'config_file:={bridge_params}',
+        ]
+    )
+
     return LaunchDescription([
-        # env_var,
-        # model_arg,
         set_env_vars_resources,
         robot_state_publisher,
         world_arg,
         gazebo_launch,
-        # start_gazebo_server,
-        # start_gazebo_client,
         spawn_robot,
+        ros_gz_bridge
     ])

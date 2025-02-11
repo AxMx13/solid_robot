@@ -1,0 +1,11 @@
+# Default initial positions for solid_robot's ros2_control fake system
+
+initial_positions:
+  gripper_joint: 0.0
+  joint1: 0.0
+  joint2: 0.0
+  joint3: 0.0
+  joint4: 0.0
+  joint5: 0.0
+  left_claw_joint: 0.0
+  right_claw_joint: 0.0

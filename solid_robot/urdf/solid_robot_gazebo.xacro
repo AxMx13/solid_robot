@@ -2,10 +2,13 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="solid_robot">
     <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
             <robot_param>robot_description</robot_param>
             <robot_param_node>robot_state_publisher</robot_param_node>
             <parameters>$(find solid_robot_controller)/config/solid_robot_controllers.yaml</parameters>
+            <ros>
+                <remapping>/controller_manager/robot_description:=/robot_description</remapping>
+            </ros>
         </plugin>
     </gazebo>
 </robot>
