@@ -28,3 +28,11 @@ ros2 launch solid_robot gazebo.launch.py
 source ~/solid_robot_ws/install/setup.bash
 ros2 launch solid_robot_controller controller.launch.py 
 ```
+
+<p>Launch MoveIt in new terminal:</p>
+
+```
+source ~/solid_robot_ws/install/setup.bash
+ros2 launch solid_robot_moveit moveit.launch.py 
+```
+It should open rviz2 where you can send commands to robot
