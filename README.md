@@ -1,5 +1,7 @@
 # Example open source URDF robot for MoveIt2
 
+![Solid Robot](pics/pic1.png)
+
 ### How to use:
 Create ros2 workspace and clone this repository:
 ```
